@@ -8,7 +8,6 @@
 import UIKit
 
 class ViewController: UIViewController {
-    
     let numberPadStackView = UIStackView()
     let topFuntionStackView = UIStackView()
     let numberStackView1 = UIStackView()
@@ -70,49 +69,63 @@ class ViewController: UIViewController {
     }
     
     @objc private func pressedPlusButton() {
-        calcManager.isCalculated = true
-        calcManager.currentCalcType = .plus
-        calcManager.calcAction()
+        if !calcManager.isBlockCheck() {
+            calcManager.isCalculated = true
+            calcManager.currentCalcType = .plus
+            calcManager.calcAction()
+        }
     }
     
     @objc private func pressedminusButton() {
-        calcManager.isCalculated = true
-        calcManager.currentCalcType = .minus
-        calcManager.calcAction()
+        if !calcManager.isBlockCheck() {
+            calcManager.isCalculated = true
+            calcManager.currentCalcType = .minus
+            calcManager.calcAction()
+        }
     }
     
     @objc private func pressedDivisionButton() {
-        calcManager.isCalculated = true
-        calcManager.currentCalcType = .division
-        calcManager.calcAction()
+        if !calcManager.isBlockCheck() {
+            calcManager.isCalculated = true
+            calcManager.currentCalcType = .division
+            calcManager.calcAction()
+        }
     }
     
     @objc private func pressedMultipleButton() {
-        calcManager.isCalculated = true
-        calcManager.currentCalcType = .multiple
-        calcManager.calcAction()
+        if !calcManager.isBlockCheck() {
+            calcManager.isCalculated = true
+            calcManager.currentCalcType = .multiple
+            calcManager.calcAction()
+        }
     }
     
     @objc private func pressedReverseButton() {
-        calcManager.reverse()
-        inputLabel.text = calcManager.currentEnteredValue
-        
+        if !calcManager.isBlockCheck() {
+            calcManager.reverse()
+            inputLabel.text = calcManager.currentEnteredValue
+        }
     }
     
     @objc private func pressedPercentButton() {
-        calcManager.isCalculated = true
-        calcManager.currentCalcType = .percent
-        calcManager.calcAction()
-        
+        if !calcManager.isBlockCheck() {
+            calcManager.isCalculated = true
+            calcManager.currentCalcType = .percent
+            calcManager.calcAction()
+        }
     }
     
     @objc private func pressedResultButton() {
-        calcManager.result()
-        inputLabel.text = calcManager.currentEnteredValue
+        if !calcManager.isBlockCheck() {
+            calcManager.result()
+            inputLabel.text = calcManager.currentEnteredValue
+        }
     }
     
-
-    
+    @objc private func pressDotButton() {
+        calcManager.dotPoint()
+        inputLabel.text = calcManager.currentEnteredValue
+    }
     
     private func setLayout() {
         
@@ -252,6 +265,7 @@ class ViewController: UIViewController {
         setButton(button: number0Button, isPointColor: true)
         
         dotButton.setTitle(".", for: .normal)
+        dotButton.addTarget(self, action: #selector(pressDotButton), for: .touchUpInside)
         setButton(button: dotButton, isPointColor: false)
         
         let size = UIScreen.main.bounds.width/4-0.75
@@ -292,4 +306,5 @@ class ViewController: UIViewController {
 
 
 }
+
 

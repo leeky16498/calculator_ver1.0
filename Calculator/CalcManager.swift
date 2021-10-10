@@ -69,7 +69,6 @@ class CalcManager {
     }
     
     func division() {
-        
         var result : Double = 0
         var isfirst = true
         
@@ -111,8 +110,7 @@ class CalcManager {
         
         currentEnteredValue = String(result)
         }
-    
-    
+
     func reverse() {
         let nowValue = Double(currentEnteredValue) ?? 0
         var afterValue : Double = 0
@@ -126,10 +124,19 @@ class CalcManager {
         currentEnteredValue = String(afterValue)
     }
     
-    
+    func dotPoint() {
+        if currentEnteredValue.count == 0 {
+            currentEnteredValue = "0."
+        } else {
+            if !isCalculated {
+                if !currentEnteredValue.contains(".") {
+                    currentEnteredValue += "."
+                }
+            }
+        }
+    }
     
     func result(){
-       
         isCalculated = true
         
         guard let currentCalcType = currentCalcType else {
@@ -160,6 +167,18 @@ class CalcManager {
         self.currentCalcType = nil
     }
     
+    func isBlockCheck() -> Bool{
+        guard let value = currentEnteredValue.last else {
+            return false
+        }
+        
+        if value == "." {
+            return true
+        } else {
+            return false
+        }
+    }
+    
     static func isNumberText(text : String) -> Bool {
         if let number = Int(text) { // "1" >> 1
             return true
@@ -169,3 +188,4 @@ class CalcManager {
     }
     
 }
+
